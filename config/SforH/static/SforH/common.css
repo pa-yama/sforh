@@ -1,0 +1,194 @@
+html *{
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+.mainContainer {
+  z-index: 2;
+  height: 100%;
+  width: 900px;
+  /* position: absolute; */
+  top: 15%;
+  left: 20%;
+  background-color: white;
+}
+main {
+  z-index: 1;
+  height: 100%;
+  width: 1600px;
+  background-image: url("../image/background-l.jpg");
+  
+}
+.title:before {
+  position: relative;
+  top: 5px;
+  margin: 0 10px 0 0;
+  content: url(//into-the-program.com/assets/images/icon/icon_clip.png);
+}
+:root{
+  font-family: "Arial","Hiragino Sans",YuGothic,"Yu Gothic","メイリオ",Meiryo;
+  font-size: 17px;
+  line-height: 1em;
+  
+}
+p{
+  letter-spacing: 0.05em;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  font-size: 1em;
+  line-height: 1.5em;
+}
+header{
+    height: 80px;
+    box-shadow: 0px 0px 5px 0px hsla(0, 0%, 7%, 0.3);
+    padding:0 20px 0;
+    background-color: #99d3df;
+    z-index: 3;
+}
+header p{
+    margin:0;
+    font-size:30px;
+    line-height:50px;
+}
+.flex{
+  display: flex;
+  justify-content: space-around;
+}
+.cover1 img{
+  width: 170px;
+  height: 90px;
+}
+
+#wrapper{
+    position:relative;
+    height:100vh;
+    padding-bottom:0px;
+    display:flex;
+}
+#nav{
+    position: relative;
+    top: 0px;
+    left: 0px;
+    margin-right: 0px;
+    overflow: hidden;
+    width: auto;
+    height: auto;
+    box-sizing: border-box;
+    font-size: 12px;
+}
+#nav-ul{
+    list-style:none;
+    margin:0;
+    padding:0;
+}
+.nav-li{
+    height: 40px;
+    width: 230px;
+    color: #0f1626;
+}
+.nav-li-a{
+    display: flex;
+    align-items: center;
+    line-height: 40px;
+    padding-left: 15px;
+    font-size: 15px;
+    color:#0f1626;
+}
+#main{
+    padding: 10px;
+}
+h2{
+  margin:20px 0;
+}
+header{
+  display:flex;
+  justify-content: space-between;
+  height: 100px;
+  box-shadow: 0px 0px 5px 0px hsla(0, 0%, 7%, 0.3);
+  padding:0 20px 0;
+}
+a{
+  text-decoration: none;
+}
+
+header .header-munu-ul{
+display: flex;
+height: 50px;
+list-style: none;
+}
+header li{
+align-items: center;
+justify-content: center;
+}
+header .menu-name{
+color: white;
+/*color: #0099FF;*/
+display: flex;
+align-items: center;
+justify-content: center;
+height: 50px;
+font-size: 20px;
+font-weight: 600;
+}
+header .nav_item{
+  position: relative;
+}
+header .nav_item:hover{
+background-color: rgb(43, 42, 42);
+}
+
+header .panel{
+position: absolute;
+top:52px;
+left: 0;
+right: 0;
+margin: auto;
+overflow: hidden;
+width: 100%;
+display: none;
+background-color: #f5f0e9;
+z-index: 100;
+border-radius: 3px;
+box-shadow: 0 0px 20px rgba(0,0,0,0.2);
+}
+header .panel_item{
+display: block;
+margin: 20px 10px;
+font-size: 14px;
+}
+header .panel_item a{
+color: #0099FF;
+font-weight: 100;
+}
+header .panel_item a:hover{
+text-decoration: underline;
+}
+header .nav_item{
+display: block;
+width: 230px;
+text-align: center;
+}
+.is-active{
+color: white !important;
+}
+.logo{
+  display: flex;
+  align-items: flex-end;
+}
+.edit-button{
+  display: block;
+  margin: 0 0 0 auto;
+}
+.good-button{
+  background-color: red;
+}
+.goodCancel-button{
+  background-color: green;
+}
+.post-button{
+  background-color: blue;
+}
+
+.create-post-input{
+  background-color: blue;
+}

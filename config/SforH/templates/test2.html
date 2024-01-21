@@ -1,0 +1,17 @@
+<table>
+    {% for obj in object_list %}
+    <tr>
+      <td colspan = 3>{{ obj.title }}</td>
+      <td>{{ obj.user.name }}</td>
+      <td hidden>{{ obj.post_id }}</td>
+      <!-- 編集ボタンはログインユーザーのみ表示する予定 -->
+    </tr>
+    <tr>
+      <td>{{ obj.tag }}</td>
+    </tr>
+    {% empty %}
+    <tr>
+      <td>問い合わせに該当する投稿はありません</td> 
+    </tr>
+    {% endfor %}
+</table>

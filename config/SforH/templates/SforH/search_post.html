@@ -1,0 +1,61 @@
+{% extends "SforH/base.html" %}
+{% load static %}
+{% block content %}
+<div>検索画面</div>
+<table>
+  <form method="GET">
+    <table>
+      <tr>
+        <td>キーワード検索</td>
+        <td>
+              <input type="text" name="title"/>
+        </td>
+      </tr>
+      <tr>
+        <td>タグ検索</td>
+        <td>
+          <input type="text" name="tag"/>         
+        </td>
+      </tr>
+      <tr>
+        <td><button type="submit">検索</button></td>
+      </tr>
+    </table>
+  </form>
+  <table>
+    {% for obj in object_list %}
+    <tr>
+      <td colspan = 3>{{ obj.title }}</td>
+      <td>{{ obj.user.name }}</td>
+      <td hidden>{{ obj.post_id }}</td>
+      <!-- 編集ボタンはログインユーザーのみ表示する予定 -->
+      <td>
+        <form method="GET" action="{%url 'detail' obj.post_id %}">
+          <button>詳細</button>
+        </form>       
+      </td>
+    </tr>
+    <tr>
+      <td>{{ obj.tag }}</td>
+    </tr>
+    {% empty %}
+    <tr>
+      <td>問い合わせに該当する投稿はありません</td> 
+    </tr>
+    {% endfor %}
+  </table>
+</table>
+
+<p>リアクトの確認<p>
+<div id="like_button_container"></div>
+
+<!-- Load React. -->
+<!-- Note: when deploying, replace "development.js" with "production.min.js". -->
+<script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+
+<!-- Load our React component. -->
+<script src="{% static 'SforH/js/like_button.js' %}"></script>
+
+{% endblock %}
+

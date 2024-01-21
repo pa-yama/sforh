@@ -1,0 +1,11 @@
+Userテーブル内のデータを全件表示する。
+{% for user in object_list %}
+<ul>
+    <li>ユーザーID : {{ user.user_id }}</li>
+    <li>メールアドレス : {{ user.mail_address }}</li>
+    <li>パスワード : {{ user.password }}</li>
+    <li>名前 : {{ user.name }}</li>
+    <li>作成時刻 : {{ user.insert_timestamp }}</li>
+    <li>更新時刻 : {{ user.update_timestamp }}</li>
+</ul>
+{% endfor %}

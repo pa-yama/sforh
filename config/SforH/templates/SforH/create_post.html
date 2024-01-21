@@ -1,0 +1,36 @@
+{% extends "SforH/base.html" %}
+{% load static %}
+{% block content %}
+{{ errorMsg }}
+
+<form method='POST'>{% csrf_token %}
+    <div class="create-post-input">
+        <p>タイトル<p>
+        {{ form.title }}
+    </div>
+    <div class="create-post-input">
+        <p>タグ</p>
+        {{ form.tag }}
+    </div>
+    <div class="create-post-input">
+        <p>問題</p>
+        {{ form.text_probrem }}
+    </div>
+    <div class="create-post-input">
+        <p>解決方法</p>
+        {{ form.text_solution }}
+    </div>
+    <div class="create-post-input">
+        <p>参考URL</p>
+        {{ form.reference_url.errors }}<!-- エラーメッセージの表示 -->
+        {{ form.reference_url }}
+    </div>
+    <input hidden name='postId' value={{postId}}></input>
+    <input type='submit' name='submit' value='投稿'>
+    <input type='submit' name='submit' value='一時保存'>
+</form>
+
+
+<script src="{% static 'build.js' %}"></script>
+
+{% endblock content %}

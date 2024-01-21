@@ -1,0 +1,112 @@
+{% extends "SforH/base.html" %}
+{% load static %}
+{% block content %}
+
+<p>投稿者:{{ name }}</p>
+<p>{{ title }}</p>
+<p>{{ tag }}</p>
+
+
+
+<h2>問題</h2>
+<div>
+    <p>{{ text_probrem }}</p>
+</div>
+
+<h2>解決方法</h2>
+<div>
+    <p>{{ text_solution }}</p>
+</div>
+
+<h2>参考URL</h2>
+<div>
+    <p><a href="{{ reference_url }}">{{ reference_url }}</a></p>
+</div>
+
+
+{% if isActiveEdit == True  %}
+<div>
+    <form method="GET" action="{%url 'create-post-edit' %}">
+        <input type="hidden" name="post_id" value="{{ post_id }}">
+        <button class="edit-button">編集</button>
+    </form>
+</div>
+{% endif %}
+
+
+
+<div>
+    {% if isAlreadyGood == False  %}
+        <form method="POST" action="{%url 'detail-goodPost' post_id %}">{% csrf_token %}
+            <input type="hidden" name="post_id" value="{{ post_id }}">
+            <input type="hidden" name="user_id" value="{{ user.id }}">
+            <input type="hidden" name="reaction_target" value="post">
+            <button name='good' value="good" class="good-button">いいね</button>
+        </form>
+    {% elif isAlreadyGood == True  %}
+        <form method="POST" action="{%url 'detail-unlikePost' post_id %}">{% csrf_token %}
+            <input type="hidden" name="post_id" value="{{ post_id }}">
+            <input type="hidden" name="user_id" value="{{ user.id }}">
+            <input type="hidden" name="reaction_id" value="{{ reaction_id }}">
+            <input type="hidden" name="reaction_target" value="post">
+            <button name='goodCancel' value="goodCancel" class="goodCancel-button">いいね解除</button>
+        </form>
+    {% endif %}
+</div>
+
+
+
+<p>いいね数 : {{ reactionCount }}</p>
+
+
+***********************************<br>
+ここから下コメント<br><br>
+
+<table>
+{% for obj, goodCount, isAlreadyGoodCommentList in commentListObj2 %}
+    <tr>
+      <td colspan = 3>{{ obj.user.name }}</td>
+      <td>{{ obj.text_comment }} いいね数 {{ goodCount.count }}</td>
+      <td>
+        {% if isAlreadyGoodCommentList.isAlreadyGood == False  %}
+        <form method="POST" action="{%url 'detail-goodComment' obj.post_id %}">{% csrf_token %}
+            <input type="hidden" name="post_id" value="{{ post_id }}">
+            <input type="hidden" name="user_id" value="{{ user.id }}">
+            <input type="hidden" name="comment_id" value="{{ obj.comment_id }}">
+            <input type="hidden" name="reaction_target" value="comment">
+            <button name='good' value="good" class="good-button">いいね</button>
+        </form>
+        {% elif isAlreadyGoodCommentList.isAlreadyGood == True  %}
+        <form method="POST" action="{%url 'detail-unlikeComment' obj.post_id %}">{% csrf_token %}
+            <input type="hidden" name="post_id" value="{{ post_id }}">
+            <input type="hidden" name="user_id" value="1">
+            <input type="hidden" name="comment_id" value="{{ obj.comment_id }}">
+            <input type="hidden" name="reaction_target" value="comment">
+            <input type="hidden" name="reaction_id" value="{{ isAlreadyGoodCommentList.reaction_id }}">
+            <button name='goodCancel' value="goodCancel" class="goodCancel-button">いいね解除</button>
+        </form>
+        {% endif %}
+      </td>
+    </tr>
+    {% empty %}
+    <tr>
+      <td>コメントはまだ投稿されていません。</td> 
+    </tr>
+{% endfor %}
+</table>
+
+
+
+
+***********************************<br>
+<h2>コメント投稿</h2>
+
+<form method="POST" action="{%url 'detail-comment' post_id %}">{% csrf_token %}
+    <input type="hidden" name="post_id" value="{{ post_id }}">
+    <input type="hidden" name="user_id" value="{{ user.id }}">
+    <input type="hidden" name="comment_nb" value="{{ commentCount }}">
+    <input type="text" name="text_comment" value="" placeholder="コメントを入力してください。" >
+
+    <button name='comment' value="comment" class="post-button">投稿</button>
+</form>
+{% endblock %}

@@ -1,0 +1,79 @@
+{% load static %}
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE-edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0">
+    <title>SforH</title>
+    <link rel="icon" type="images/png" href="{% static 'images/favicon.png' %}">
+    <link rel="stylesheet" href="{% static 'SforH/common.css' %}">
+    <script src="https://kit.fontawesome.com/d86c726e71.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <header>
+        <div>
+          {% if user.is_authenticated %}
+          <ul class="header-munu-ul">
+            <div class="flex">
+              <!-- SforHロゴ -->
+              <div class="cover1">
+                <a href="{% url 'index' %}"><img class="logo" src="{% static 'images/logo_transparent.png' %}" alt="SforHロゴ" ></a>
+              </div>    
+            </div>
+            <!-- ユーザーコンテンツ -->
+            <li class="nav_item"><a href="#" class="menu-name js-dropdown"><i class="far fa-user-circle" style="margin-left:-10px;margin-right:10px"></i><small>{{ user.username }}</small></a>
+              <div class="panel js-dropdown-menu">
+                <ul class="panel-inner">
+                  <li class="panel_item"><a href="{% url 'logout' %}">Logout</a></li>
+                  <li class="panel_item"><a href="{% url 'password_reset'%}">Change Password</a></li>
+                  <li class="panel_item"><a href="{% url 'create-post'%}">投稿する</a></li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+          {% else %}
+          <p><a href="{% url 'login' %}">ログイン</a></p>
+          {% endif %}
+        </div>
+    </header>
+      <main id="main">
+        <!-- ここにメインコンテンツを表示 -->
+        <div class="mainContainer">
+          {% block content %}
+          {% endblock %}
+        </div>
+      </main>
+    </div>
+
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script type="text/javascript">
+      $(function(){
+        var $dropdown = $('.js-dropdown');
+        var DURATION = 200; //アニメーションの速さ
+
+        function fadeOutMenu(){
+          $dropdown.removeClass('is-active')
+            .next('.js-dropdown-menu')
+            .stop()
+            .slideUp(DURATION);
+        }
+
+        $('.js-dropdown').on('click', function(){
+          var $self = $(this);
+          if(!$self.hasClass('is-active')){
+            fadeOutMenu();
+          }
+          $self.toggleClass('is-active')
+            .next('.js-dropdown-menu')
+            .stop().slideToggle(DURATION);
+        })
+        $(document).on('click touchend', function(event) {
+          if (!$(event.target).closest('.js-dropdown').length) {
+            fadeOutMenu();
+          }
+        });
+      });
+    </script>
+
+</body>
+</html>
